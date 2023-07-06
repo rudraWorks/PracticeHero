@@ -2,14 +2,19 @@ import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
-export default function SelectComp() {
-  const [platform, setPlatform] = useState('');
+export default function SelectPlatform({setPlatformParent}) {
+  const [platform, setPlatform] = useState('leetcode');
+  
+  useEffect(()=>{
+    setPlatformParent(platform)
+  },[platform])
 
   const handleChange = (event) => {
     setPlatform(event.target.value);
-  };
+  }
+  
   return ( 
     <div>
      
@@ -20,13 +25,10 @@ export default function SelectComp() {
           displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
         >
-          <MenuItem value="">
-            Leetcode
-          </MenuItem>
-          <MenuItem value={10}>Codeforces</MenuItem>
-          <MenuItem value={20}>Codechef</MenuItem>
-          <MenuItem value={30}>Atcoder</MenuItem>
-          <MenuItem value={30}>Other</MenuItem>
+          <MenuItem value="leetcode">Leetcode</MenuItem>
+          <MenuItem value='codeforces'>Codeforces</MenuItem>
+          <MenuItem value='codechef'>Codechef</MenuItem>
+          <MenuItem value='other'>Other</MenuItem>
         </Select>
         <FormHelperText>Coding platform</FormHelperText>
       </FormControl>

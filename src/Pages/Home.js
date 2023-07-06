@@ -1,15 +1,17 @@
 import React, { useContext } from 'react'
 import TableComp from '../components/TableComp'
-import { Button, Box, Skeleton,Typography } from '@mui/material'
+import { Button, Box, Skeleton, Typography, Fab } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../Contexts/User/UserContext';
 import HomeInfoComp from '../components/HomeInfoComp';
-
+import FilterComp from '../components/Filter/Filter'
+import RecordsContext from '../Contexts/Records/RecordsContext';
 
 function Home() {
     const navigate = useNavigate()
     const { user } = useContext(UserContext)
+    const { records } = useContext(RecordsContext)
 
     return (
 
@@ -22,18 +24,18 @@ function Home() {
         //     <Skeleton animation="wave" />
         // </Box>
 
-        <Box m={3}>
+        <Box m={1}>
             {
-                user ?
-                    <div>
-                        <Typography variant='h4' gutterBottom>Welcome {user.name}</Typography>
-                        <TableComp />
-                        <Button onClick={() => navigate('/addcontest')} variant="contained" color="success" sx={{ position: 'fixed', bottom: 16, right: 16 }}>
-                            <AddIcon />
-                        </Button>
-                    </div>
-                    :
-                    <HomeInfoComp/>
+                // user ?
+                <div>
+                    <FilterComp />
+                    <TableComp records={records} />
+                    <Fab color="secondary" aria-label="add" onClick={() => navigate('/addcontest')} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
+                        <AddIcon />
+                    </Fab>
+                </div>
+                // :
+                // <HomeInfoComp/>
             }
 
         </Box>

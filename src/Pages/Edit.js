@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import React, { useState, useContext, useEffect } from 'react'
 import {
     Typography,
     TextField,
@@ -13,10 +12,11 @@ import AlertComp from '../components/AlertComp'
 import Editor from '../components/Edtior'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RecordsContext from '../Contexts/Records/RecordsContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams} from 'react-router-dom'
+
 
 function AddContest() {
-    const [problems, setProblems] = useState(4)
+    const [problems, setProblems] = useState(0)
     const [contestName, setContestName] = useState('')
     const [contestLink, setContestLink] = useState('')
     const [platform, setPlatform] = useState('')
@@ -24,9 +24,28 @@ function AddContest() {
     const [performance, setPerformance] = useState(0)
 
     const [notification, setNotification] = useState('')
-    const {recordsDispatch } = useContext(RecordsContext)
+    const {records,recordsDispatch} = useContext(RecordsContext)
     const [submitError,setSubmitError] = useState('')
     const navigate = useNavigate()
+    const {recordId} = useParams()
+
+    useEffect(()=>{
+        for(let {uuid,problems,problemsSolved,contestLink,contestName,performance,platform,reps} of records){
+            if(uuid===recordId){
+                setProblems(problems)
+                setContestLink(contestLink)
+                setContestName(contestName)
+                setPlatform(platform)
+                setProblemsSolved(problemsSolved)
+                setPerformance(performance)
+            }
+        }
+    },[recordId]) 
+
+    const handleRecordDelete = () => {
+        recordsDispatch({type:'DELETE',uuid:recordId})
+        navigate('/')
+    }
 
     const handleRecordSubmit = () => {
         setSubmitError('')
@@ -37,9 +56,9 @@ function AddContest() {
         if(contestName==='' || contestLink==='' || problems<=0 ){
             return setSubmitError('Input fields can not be empty!')
         }
-        recordsDispatch({ type: 'INSERT', record: { contestName,uuid:uuidv4(), contestLink, platform, problems,problemsSolved, date, reps, bookmarked, performance } })
+        recordsDispatch({ type: 'UPDATE',  uuid:recordId , record: { contestName,uuid:recordId, contestLink, platform, problems,problemsSolved, date, reps, bookmarked, performance }})
         navigate('/')
-    }
+    } 
 
     const problemsHandler = (e) => {
         if (e.target.value === '') {
@@ -68,7 +87,7 @@ function AddContest() {
             <Stack direction="row" alignItems="center" gap={1} mb={2}>
                 <EmojiEventsIcon sx={{ fontSize: 40 }} />
                 <Typography variant='h4'>
-                    Add Contest
+                    Edit Contest
                 </Typography>
             </Stack>
 
@@ -96,10 +115,12 @@ function AddContest() {
             <Editor />
             <p style={{color:'red'}}>{submitError}</p>
             <Button onClick={handleRecordSubmit} variant="contained" color="success"> Save </Button>
-        </Stack>
+            <Button onClick={handleRecordDelete} variant="contained" color="error"> Delete </Button>
 
+        </Stack>
+ 
 
     )
 }
 
-export default AddContest 
+export default AddContest  
