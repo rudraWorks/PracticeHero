@@ -13,7 +13,7 @@ export default function ButtonAppBar() {
       <AppBar position="static" color='primary'> 
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1}}>
-            <Link style={{textDecoration:'none',color:'white'}} to='/'> Leetcode Contest</Link>
+            <Link style={{textDecoration:'none',color:'white'}} to='/'> PracticeHero.site</Link>
           </Typography>
           <Menu />
         </Toolbar>
