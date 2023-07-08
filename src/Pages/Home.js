@@ -45,7 +45,7 @@ function Home() {
 
 
   return (
-    <Box sx={{ textAlign: 'center', background: 'white' }} mt={4}>
+    <Box sx={{ textAlign: 'center' }} mt={4}>
       {/* {width + '-' + fontSize+"-"+fs2+'-'+fs3} */}
       <Typography variant='h1' sx={{ fontWeight: 'bolder', fontSize ,WebkitTextStroke:'1px black',color:'yellow' }} gutterBottom> Measure it to master it! </Typography>
       <Typography variant='h3' sx={{fontSize:fs2}} gutterBottom>Track your daily progress with <b style={{WebkitTextStroke:'1px blue',color:'aliceblue'}}>PracticeHero</b></Typography>

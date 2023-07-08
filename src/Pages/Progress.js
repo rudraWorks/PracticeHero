@@ -13,7 +13,7 @@ function Home() {
             {
                 <div>
                     <TableComp/>
-                    <Fab color="secondary" aria-label="add" onClick={() => navigate('/addcontest')} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
+                    <Fab color="secondary" aria-label="add" onClick={() => navigate('addcontest')} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
                         <AddIcon />
                     </Fab>
                 </div>

@@ -17,12 +17,19 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: 'addContest',
-        element: <AddContest />
-      },
-      {
         path: 'progress',
-        element: <Progress />
+  
+        children:[
+          {
+            index:true,
+            element: <Progress />
+          },
+          {
+            path: 'addContest',
+            element: <AddContest />
+          },
+        ]
+        
       },
       {
         path: 'edit/:recordId',
