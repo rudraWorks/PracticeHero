@@ -101,50 +101,49 @@ export default function CustomizedTables() {
         setShowDialog(true)
     }
     return (
-        <>
-            <Typography variant='h6'>{records.length} {records.length>1?'contests':'contest'} </Typography>
 
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 1300 }} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell ><CenterCell><EmojiEventsIcon />&nbsp;Contest Name</CenterCell></StyledTableCell>
-                            <StyledTableCell ><CenterCell><LinkIcon />&nbsp;Contest Link</CenterCell></StyledTableCell>
-                            <StyledTableCell ><CenterCell><TerminalIcon />&nbsp;Platform</CenterCell></StyledTableCell>
-                            <StyledTableCell ><CenterCell><CalendarMonthIcon /> &nbsp;Date </CenterCell> </StyledTableCell>
-                            <StyledTableCell ><CenterCell><TaskAltIcon /> &nbsp;Done</CenterCell></StyledTableCell>
-                            <StyledTableCell ><CenterCell><StarBorderIcon />&nbsp;Performance?</CenterCell></StyledTableCell>
-                            <StyledTableCell ><CenterCell><TextSnippetIcon />&nbsp;Concepts Learnt</CenterCell></StyledTableCell>
-                            <StyledTableCell><CenterCell><BookmarkIcon />&nbsp;Bookmark</CenterCell></StyledTableCell>
-                            <StyledTableCell><CenterCell><EditIcon />&nbsp;Edit</CenterCell></StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.map((row) => (
-                            <StyledTableRow key={row.id}>
-                                <StyledTableCell component="th" scope="row">
-                                    {row.contestName}
-                                </StyledTableCell>
-                                <StyledTableCell>{row.contestLink}</StyledTableCell>
-                                <StyledTableCell>{row.platform}</StyledTableCell>
-                                <StyledTableCell>{row.date}</StyledTableCell>
-                                <StyledTableCell>{row.done}</StyledTableCell>
-                                <StyledTableCell>{row.performance}</StyledTableCell>
-                                <StyledTableCell>{row.concepts}</StyledTableCell>
-                                <StyledTableCell>{row.bookmarked}</StyledTableCell>
-                                <StyledTableCell onClick={() => navigate(`/edit/${row.id}`)}>{row.edit}</StyledTableCell>
+        <TableContainer component={Paper} variant='outlined' sx={{ padding: '5px' }}>
+            <Typography variant='h6'>{records.length} {records.length > 1 ? 'contests' : 'contest'} </Typography>
 
-                            </StyledTableRow>
-                        ))}
+            <Table sx={{ minWidth: 1300 }} aria-label="customized table">
+                <TableHead>
+                    <TableRow>
+                        <StyledTableCell ><CenterCell><EmojiEventsIcon />&nbsp;Contest Name</CenterCell></StyledTableCell>
+                        <StyledTableCell ><CenterCell><LinkIcon />&nbsp;Contest Link</CenterCell></StyledTableCell>
+                        <StyledTableCell ><CenterCell><TerminalIcon />&nbsp;Platform</CenterCell></StyledTableCell>
+                        <StyledTableCell ><CenterCell><CalendarMonthIcon /> &nbsp;Date </CenterCell> </StyledTableCell>
+                        <StyledTableCell ><CenterCell><TaskAltIcon /> &nbsp;Done</CenterCell></StyledTableCell>
+                        <StyledTableCell ><CenterCell><StarBorderIcon />&nbsp;Performance?</CenterCell></StyledTableCell>
+                        <StyledTableCell ><CenterCell><TextSnippetIcon />&nbsp;Concepts Learnt</CenterCell></StyledTableCell>
+                        <StyledTableCell><CenterCell><BookmarkIcon />&nbsp;Bookmark</CenterCell></StyledTableCell>
+                        <StyledTableCell><CenterCell><EditIcon />&nbsp;Edit</CenterCell></StyledTableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows.map((row) => (
+                        <StyledTableRow key={row.id}>
+                            <StyledTableCell component="th" scope="row">
+                                {row.contestName}
+                            </StyledTableCell>
+                            <StyledTableCell>{row.contestLink}</StyledTableCell>
+                            <StyledTableCell>{row.platform}</StyledTableCell>
+                            <StyledTableCell>{row.date}</StyledTableCell>
+                            <StyledTableCell>{row.done}</StyledTableCell>
+                            <StyledTableCell>{row.performance}</StyledTableCell>
+                            <StyledTableCell>{row.concepts}</StyledTableCell>
+                            <StyledTableCell>{row.bookmarked}</StyledTableCell>
+                            <StyledTableCell onClick={() => navigate(`/edit/${row.id}`)}>{row.edit}</StyledTableCell>
 
-                    </TableBody>
-                </Table>
-                {
-                    rows.length === 0 && <Typography variant='h4' sx={{ margin: '30px', textAlign: 'center' }} gutterBottom>You have not given any contest!</Typography>
-                }
-                {showDialog && <Dialog concepts={concepts} setShowDialog={setShowDialog} />}
-                {showSnack && <Snackbar key={Math.random()} setShowSnack={setShowSnack} message={showSnack.message} />}
-            </TableContainer>
-        </>
+                        </StyledTableRow>
+                    ))}
+
+                </TableBody>
+            </Table>
+            {
+                rows.length === 0 && <Typography variant='h4' sx={{ margin: '30px', textAlign: 'center' }} gutterBottom>You have not given any contest!</Typography>
+            }
+            {showDialog && <Dialog concepts={concepts} setShowDialog={setShowDialog} />}
+            {showSnack && <Snackbar key={Math.random()} setShowSnack={setShowSnack} message={showSnack.message} />}
+        </TableContainer>
     );
 } 

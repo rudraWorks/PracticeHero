@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './Pages/Home'
 import Root from './Pages/Root'
 import AddContest from './Pages/AddContest'
-import About from './Pages/About'
+import Progress from './Pages/Progress'
 import RecordsState from './Contexts/Records/RecordsState'
 import Edit from './Pages/Edit'
 
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
         element: <AddContest />
       },
       {
-        path: 'about',
-        element: <About />
+        path: 'progress',
+        element: <Progress />
       },
       {
         path: 'edit/:recordId',
