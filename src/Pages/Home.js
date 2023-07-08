@@ -6,12 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from '../Contexts/User/UserContext';
 import HomeInfoComp from '../components/HomeInfoComp';
 import FilterComp from '../components/Filter/Filter'
-import RecordsContext from '../Contexts/Records/RecordsContext';
 
 function Home() {
     const navigate = useNavigate()
     const { user } = useContext(UserContext)
-    const { records } = useContext(RecordsContext)
 
     return (
 
@@ -28,8 +26,8 @@ function Home() {
             {
                 // user ?
                 <div>
-                    <FilterComp />
-                    <TableComp records={records} />
+                    {/* <FilterComp /> */}
+                    <TableComp/>
                     <Fab color="secondary" aria-label="add" onClick={() => navigate('/addcontest')} sx={{ position: 'fixed', bottom: 16, right: 16 }}>
                         <AddIcon />
                     </Fab>

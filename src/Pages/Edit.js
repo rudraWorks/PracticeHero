@@ -8,11 +8,11 @@ import {
     Button,
 } from '@mui/material'
 import SelectPlatform from '../components/SelectPlatform'
-import AlertComp from '../components/AlertComp'
-import Editor from '../components/Edtior'
+import Editor from '../components/Editor'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RecordsContext from '../Contexts/Records/RecordsContext'
 import { useNavigate, useParams} from 'react-router-dom'
+import Snackbar from '../components/Snackbar' 
 
 
 function AddContest() {
@@ -22,15 +22,19 @@ function AddContest() {
     const [platform, setPlatform] = useState('')
     const [problemsSolved, setProblemsSolved] = useState(0)
     const [performance, setPerformance] = useState(0)
+    const [bookmarked,setBookmarked] = useState(false)
+    const [reps,setReps] = useState(0)  
+    const [date,setDate] = useState('')
+    const [concepts,setConcepts] = useState('')
 
-    const [notification, setNotification] = useState('')
     const {records,recordsDispatch} = useContext(RecordsContext)
-    const [submitError,setSubmitError] = useState('')
     const navigate = useNavigate()
     const {recordId} = useParams()
+    const [showSnack,setShowSnack] = useState(null)
+
 
     useEffect(()=>{
-        for(let {uuid,problems,problemsSolved,contestLink,contestName,performance,platform,reps} of records){
+        for(let {uuid,problems,concepts,problemsSolved,contestLink,contestName,performance,platform,reps,bookmarked,date} of records){
             if(uuid===recordId){
                 setProblems(problems)
                 setContestLink(contestLink)
@@ -38,6 +42,10 @@ function AddContest() {
                 setPlatform(platform)
                 setProblemsSolved(problemsSolved)
                 setPerformance(performance)
+                setBookmarked(bookmarked)
+                setReps(reps)
+                setDate(date)
+                setConcepts(concepts)
             }
         }
     },[recordId]) 
@@ -48,36 +56,32 @@ function AddContest() {
     }
 
     const handleRecordSubmit = () => {
-        setSubmitError('')
-        const date = new Date()
-        const reps = 1
-        const bookmarked = false
-        console.log(contestName, contestLink, platform, problems, problemsSolved, performance)
         if(contestName==='' || contestLink==='' || problems<=0 ){
-            return setSubmitError('Input fields can not be empty!')
+            return setShowSnack({message:'Input fields can not be empty!'}) 
         }
-        recordsDispatch({ type: 'UPDATE',  uuid:recordId , record: { contestName,uuid:recordId, contestLink, platform, problems,problemsSolved, date, reps, bookmarked, performance }})
-        navigate('/')
-    } 
+        recordsDispatch({ type: 'UPDATE',  uuid:recordId , record: { contestName,concepts,uuid:recordId, contestLink, platform, problems,problemsSolved, date, reps, bookmarked, performance }})
+        navigate('/') 
+    }  
 
     const problemsHandler = (e) => {
+        setShowSnack(null)
         if (e.target.value === '') {
             setProblems(0)
             return
         }
         if (parseInt(e.target.value) > 10) {
             setProblems(10)
-            setNotification('Number of problems can not be greater than 10!')
+            setShowSnack({message:'Number of problems can not be more than 10!'}) 
             return
         }
         if (parseInt(e.target.value) < 0) {
             setProblems(0)
-            setNotification('Number of problems can not be less than 1!')
+            setShowSnack({message:'Number of problems can not be less than 1!'}) 
             return
         }
-
-        setNotification('')
         setProblems(parseInt(e.target.value))
+        setProblemsSolved(0)
+
     }
 
     return (
@@ -90,12 +94,11 @@ function AddContest() {
                     Edit Contest
                 </Typography>
             </Stack>
-
-            {notification && <AlertComp key={Math.random()} message={notification} severity={'warning'} />}
+ 
 
             <TextField id="outlined-basic" value={contestName} onChange={(e) => setContestName(e.target.value)} label="Enter contest name" variant="outlined" />
             <TextField id="outlined-basic" value={contestLink} onChangeCapture={(e) => setContestLink(e.target.value)} label="Enter contest link" variant="outlined" />
-            <SelectPlatform setPlatformParent={setPlatform} />
+            <SelectPlatform defaultValue={platform} setPlatformParent={setPlatform} />
             <TextField onInput={problemsHandler} value={`${problems}`} id="outlined-basic" type='number' label="Total number of problems" variant="outlined" />
             <Typography>Number of problems solved</Typography>
             <Slider
@@ -112,8 +115,10 @@ function AddContest() {
             <Typography >Rate your performance</Typography>
             <Rating name="half-rating" value={performance} defaultValue={performance} onChange={(e) => setPerformance(parseInt(e.target.value))} size='large' sx={{ width: 'fit-content' }} />
             <Typography >Write the concepts you learnt</Typography>
-            <Editor />
-            <p style={{color:'red'}}>{submitError}</p>
+
+            <Editor setConcepts={setConcepts} defaultValue={concepts} />
+
+            { showSnack &&  <Snackbar key={Math.random()} setShowSnack={setShowSnack} message={showSnack.message} /> }
             <Button onClick={handleRecordSubmit} variant="contained" color="success"> Save </Button>
             <Button onClick={handleRecordDelete} variant="contained" color="error"> Delete </Button>
 

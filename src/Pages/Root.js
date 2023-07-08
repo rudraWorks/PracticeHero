@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import Menu from '../components/NavbarComp'
 import {Outlet,Link} from 'react-router-dom'
 
-
 export default function ButtonAppBar() {
  
 

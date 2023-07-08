@@ -8,6 +8,7 @@ import Login from './Pages/Login'
 import About from './Pages/About'
 import RecordsState from './Contexts/Records/RecordsState'
 import Edit from './Pages/Edit'
+import Concepts from './Pages/Concepts'
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: 'edit/:recordId',
         element: <Edit/>
+      },
+      {
+        path:'concepts/:recordId',
+        element: <Concepts/>
       }
     ]
   }

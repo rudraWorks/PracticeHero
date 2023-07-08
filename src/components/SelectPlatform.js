@@ -4,23 +4,24 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {useState,useEffect} from 'react'
 
-export default function SelectPlatform({setPlatformParent}) {
-  const [platform, setPlatform] = useState('leetcode');
-  
+export default function SelectPlatform({setPlatformParent,defaultValue}) {
+
+  const [platform,setPlatform] = useState('leetcode')
   useEffect(()=>{
-    setPlatformParent(platform)
-  },[platform])
+    setPlatformParent('leetcode')
+  },[]) 
 
   const handleChange = (event) => {
-    setPlatform(event.target.value);
+    setPlatformParent(event.target.value) 
+    setPlatform(event.target.value)
   }
   
   return ( 
     <div>
-     
+      
       <FormControl sx={{ minWidth: 120 }}>
-        <Select
-          value={platform}
+        <Select 
+          value={defaultValue || platform}
           onChange={handleChange}
           displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
