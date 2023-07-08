@@ -102,7 +102,7 @@ export default function CustomizedTables() {
     }
     return (
 
-        <TableContainer component={Paper} variant='outlined' sx={{ padding: '5px' }}>
+        <TableContainer component={Paper}  sx={{ padding: '5px' }}>
             <Typography variant='h6'>{records.length} {records.length > 1 ? 'contests' : 'contest'} </Typography>
 
             <Table sx={{ minWidth: 1300 }} aria-label="customized table">

@@ -52,7 +52,7 @@ function AddContest() {
 
     const handleRecordDelete = () => {
         recordsDispatch({type:'DELETE',uuid:recordId})
-        navigate('/')
+        navigate('/progress')
     }
 
     const handleRecordSubmit = () => {
@@ -60,7 +60,7 @@ function AddContest() {
             return setShowSnack({message:'Input fields can not be empty!'}) 
         }
         recordsDispatch({ type: 'UPDATE',  uuid:recordId , record: { contestName,concepts,uuid:recordId, contestLink, platform, problems,problemsSolved, date, reps, bookmarked, performance }})
-        navigate('/') 
+        navigate('/progress') 
     }  
 
     const problemsHandler = (e) => {

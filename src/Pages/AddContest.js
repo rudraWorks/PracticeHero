@@ -38,7 +38,7 @@ function AddContest() {
             return setShowSnack({message:'Input fields can not be empty!'})
         }
         recordsDispatch({ type: 'INSERT', record: { contestName,uuid:uuidv4(), contestLink, platform, problems,problemsSolved, date, bookmarked, performance, concepts } })
-        navigate('/')
+        navigate('/progress')
     }
 
     const problemsHandler = (e) => {
