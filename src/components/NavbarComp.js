@@ -2,20 +2,11 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Divider from '@mui/material/Divider';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Avatar from '@mui/material/Avatar'
 import InfoIcon from '@mui/icons-material/Info';
 import HomeIcon from '@mui/icons-material/Home';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import LogoutIcon from '@mui/icons-material/Logout';
-import FaceIcon from '@mui/icons-material/Face';
-import LoginIcon from '@mui/icons-material/Login';
-import { useContext, useState } from 'react';
-import UserContext from '../Contexts/User/UserContext';
-import { Link, useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -25,12 +16,12 @@ const StyledMenu = styled((props) => (
             horizontal: 'right',
         }}
         transformOrigin={{
-            vertical: 'top',
+            vertical: 'top', 
             horizontal: 'right',
         }}
         {...props}
     />
-))(({ theme }) => ({
+))(({ theme }) => ({ 
     '& .MuiPaper-root': {
         borderRadius: 6,
         marginTop: theme.spacing(1),
@@ -61,8 +52,6 @@ const StyledMenu = styled((props) => (
 export default function NavbarComp() {
 
     const [anchorEl, setAnchorEl] = useState(null);
-    const { user, dispatch } = useContext(UserContext)
-    const navigate = useNavigate()
 
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -71,13 +60,9 @@ export default function NavbarComp() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const logoutHandler = () => {
-        dispatch({ type: 'LOGOUT' })
-        handleClose()
-        navigate('/login')
-    }
 
-    return (
+
+    return ( 
         <div>
             <Button
                 id="demo-customized-button"
@@ -87,15 +72,9 @@ export default function NavbarComp() {
                 variant="contained"
                 disableElevation
                 onClick={handleClick}
-                endIcon={<KeyboardArrowDownIcon />}
             >
-                {
-                    !user ? <Avatar><FaceIcon /></Avatar>
-                        :
-                        <Avatar alt={user.name}referrerPolicy="no-referrer" key="webpages:Enabled" value="true" src={user.picture} />
-                }
-
-
+              <DensityMediumIcon/>
+   
             </Button>
             <StyledMenu
                 id="demo-customized-menu"
@@ -120,32 +99,6 @@ export default function NavbarComp() {
                     </MenuItem>
                 </Link>
 
-
-                {
-                    !user ?
-                        <Link to='/login'>
-                            <MenuItem onClick={handleClose} disableRipple>
-                                <LoginIcon />
-                                Login
-                            </MenuItem>
-                        </Link>
-                        :
-                        <div>
-                            <MenuItem onClick={logoutHandler} disableRipple>
-                                <LogoutIcon />
-                                Logout
-                            </MenuItem>
-                            <Divider sx={{ my: 0.5 }} />
-                            <MenuItem onClick={handleClose} disableRipple>
-                                <BookmarkIcon />
-                                Bookmarks
-                            </MenuItem>
-                            <MenuItem onClick={handleClose} disableRipple>
-                                <MoreHorizIcon />
-                                More
-                            </MenuItem>
-                        </div>
-                }
 
 
 

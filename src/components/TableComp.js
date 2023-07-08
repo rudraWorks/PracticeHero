@@ -11,7 +11,6 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import StyledComp from 'styled-components'
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
-import RepeatIcon from '@mui/icons-material/Repeat';
 import LinkIcon from '@mui/icons-material/Link';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
@@ -56,8 +55,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 
-function createData(contestName, contestLink, platform, date, done, performance, reps, concepts, bookmarked, id, edit) {
-    return { contestName, contestLink, platform, date, done, performance, reps, concepts, bookmarked, id, edit };
+function createData(contestName, contestLink, platform, date, done, performance, concepts, bookmarked, id, edit) {
+    return { contestName, contestLink, platform, date, done, performance, concepts, bookmarked, id, edit };
 }
 
 
@@ -72,7 +71,6 @@ export default function CustomizedTables() {
     const { records, recordsDispatch } = useContext(RecordsContext)
     const [showDialog, setShowDialog] = useState(false)
     const [concepts, setConcepts] = useState('<p><p>')
-    // console.log(records)
 
     const [showSnack, setShowSnack] = useState(null)
 
@@ -81,7 +79,7 @@ export default function CustomizedTables() {
         setShowSnack({ message: 'Changes saved' })
     }
     const rows = [];
-    for (let { uuid, contestName, contestLink, concepts, platform, date, problems, problemsSolved, performance, reps, bookmarked } of records) {
+    for (let { uuid, contestName, contestLink, concepts, platform, date, problems, problemsSolved, performance, bookmarked } of records) {
         rows.push(createData(
             contestName,
             <Link href={contestLink} target="__blank">Link</Link>,
@@ -91,7 +89,6 @@ export default function CustomizedTables() {
                 <LinearProgress sx={{ height: '10px', borderRadius: '5px' }} variant='determinate' value={(problemsSolved * 100) / problems} />
             </Tooltip>,
             <Rating name="read-only" value={performance} readOnly />,
-            <Typography variant='h6'>{reps}</Typography>,
             <Button size='small' variant='contained' onClick={() => handleDialog(concepts)} ><ArrowOutwardIcon /></Button>,
             <Switch defaultChecked={bookmarked} onChange={(e) => bookmarkHandler(e.target.checked, uuid)} />,
             uuid,
@@ -104,48 +101,50 @@ export default function CustomizedTables() {
         setShowDialog(true)
     }
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 1300 }} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell ><CenterCell><EmojiEventsIcon />&nbsp;Contest Name</CenterCell></StyledTableCell>
-                        <StyledTableCell ><CenterCell><LinkIcon />&nbsp;Contest Link</CenterCell></StyledTableCell>
-                        <StyledTableCell ><CenterCell><TerminalIcon />&nbsp;Platform</CenterCell></StyledTableCell>
-                        <StyledTableCell ><CenterCell><CalendarMonthIcon /> &nbsp;Date </CenterCell> </StyledTableCell>
-                        <StyledTableCell ><CenterCell><TaskAltIcon /> &nbsp;Done</CenterCell></StyledTableCell>
-                        <StyledTableCell ><CenterCell><StarBorderIcon />&nbsp;Performance?</CenterCell></StyledTableCell>
-                        {/* <StyledTableCell ><CenterCell><RepeatIcon />&nbsp;Reps</CenterCell></StyledTableCell> */}
-                        <StyledTableCell ><CenterCell><TextSnippetIcon />&nbsp;Concepts Learnt</CenterCell></StyledTableCell>
-                        <StyledTableCell><CenterCell><BookmarkIcon />&nbsp;Bookmark</CenterCell></StyledTableCell>
-                        <StyledTableCell><CenterCell><EditIcon />&nbsp;Edit</CenterCell></StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.id}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.contestName}
-                            </StyledTableCell>
-                            <StyledTableCell>{row.contestLink}</StyledTableCell>
-                            <StyledTableCell>{row.platform}</StyledTableCell>
-                            <StyledTableCell>{row.date}</StyledTableCell>
-                            <StyledTableCell>{row.done}</StyledTableCell>
-                            <StyledTableCell>{row.performance}</StyledTableCell>
-                            {/* <StyledTableCell>{row.reps}</StyledTableCell> */}
-                            <StyledTableCell>{row.concepts}</StyledTableCell>
-                            <StyledTableCell>{row.bookmarked}</StyledTableCell>
-                            <StyledTableCell onClick={() => navigate(`/edit/${row.id}`)}>{row.edit}</StyledTableCell>
+        <>
+            <Typography variant='h6'>{records.length} {records.length>1?'contests':'contest'} </Typography>
 
-                        </StyledTableRow>
-                    ))}
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 1300 }} aria-label="customized table">
+                    <TableHead>
+                        <TableRow>
+                            <StyledTableCell ><CenterCell><EmojiEventsIcon />&nbsp;Contest Name</CenterCell></StyledTableCell>
+                            <StyledTableCell ><CenterCell><LinkIcon />&nbsp;Contest Link</CenterCell></StyledTableCell>
+                            <StyledTableCell ><CenterCell><TerminalIcon />&nbsp;Platform</CenterCell></StyledTableCell>
+                            <StyledTableCell ><CenterCell><CalendarMonthIcon /> &nbsp;Date </CenterCell> </StyledTableCell>
+                            <StyledTableCell ><CenterCell><TaskAltIcon /> &nbsp;Done</CenterCell></StyledTableCell>
+                            <StyledTableCell ><CenterCell><StarBorderIcon />&nbsp;Performance?</CenterCell></StyledTableCell>
+                            <StyledTableCell ><CenterCell><TextSnippetIcon />&nbsp;Concepts Learnt</CenterCell></StyledTableCell>
+                            <StyledTableCell><CenterCell><BookmarkIcon />&nbsp;Bookmark</CenterCell></StyledTableCell>
+                            <StyledTableCell><CenterCell><EditIcon />&nbsp;Edit</CenterCell></StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map((row) => (
+                            <StyledTableRow key={row.id}>
+                                <StyledTableCell component="th" scope="row">
+                                    {row.contestName}
+                                </StyledTableCell>
+                                <StyledTableCell>{row.contestLink}</StyledTableCell>
+                                <StyledTableCell>{row.platform}</StyledTableCell>
+                                <StyledTableCell>{row.date}</StyledTableCell>
+                                <StyledTableCell>{row.done}</StyledTableCell>
+                                <StyledTableCell>{row.performance}</StyledTableCell>
+                                <StyledTableCell>{row.concepts}</StyledTableCell>
+                                <StyledTableCell>{row.bookmarked}</StyledTableCell>
+                                <StyledTableCell onClick={() => navigate(`/edit/${row.id}`)}>{row.edit}</StyledTableCell>
 
-                </TableBody>
-            </Table>
-            {
-                rows.length === 0 && <Typography variant='h4' sx={{margin:'30px',textAlign:'center'}} gutterBottom>You have not given any contest!</Typography>
-            }
-            {showDialog && <Dialog concepts={concepts} setShowDialog={setShowDialog} />}
-            {showSnack && <Snackbar key={Math.random()} setShowSnack={setShowSnack} message={showSnack.message} />}
-        </TableContainer>
+                            </StyledTableRow>
+                        ))}
+
+                    </TableBody>
+                </Table>
+                {
+                    rows.length === 0 && <Typography variant='h4' sx={{ margin: '30px', textAlign: 'center' }} gutterBottom>You have not given any contest!</Typography>
+                }
+                {showDialog && <Dialog concepts={concepts} setShowDialog={setShowDialog} />}
+                {showSnack && <Snackbar key={Math.random()} setShowSnack={setShowSnack} message={showSnack.message} />}
+            </TableContainer>
+        </>
     );
 } 

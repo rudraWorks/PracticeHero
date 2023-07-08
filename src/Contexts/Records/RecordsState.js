@@ -49,7 +49,7 @@ const reducer = (state, action) => {
             }
             return arr
         }
-        case 'UPDATE': {
+        case 'UPDATE': { 
             const uuid = action.uuid
             const newRecord = JSON.stringify(action.record)
             let r = JSON.parse(localStorage.getItem('records'))
@@ -69,32 +69,7 @@ const reducer = (state, action) => {
             }
             return arr
         }
-        case 'FILTER':{
-            const f = action.filter
-            // console.log(f)
-            // return state 
-            let newArr = []
-            let r = JSON.parse(localStorage.getItem('records'))
-            if(f.performance){
-                newArr = r.filter((item)=>{
-                    item = JSON.parse(item)
-                    if (f.performance==='1 star' && item.performance===1)
-                        return 1 
-                    else if (f.performance==='2 star' && item.performance===2)
-                        return 1
-                    else if ( f.performance==='3 star' && item.performance===3)
-                        return 1
-                    else if (f.performance==='4 star' && item.performance===4)
-                        return 1
-                    else if (f.performance==='5 star' && item.performance===5)
-                        return 1
-                    return 0
-                })
-            }
-            newArr = newArr.map((item)=>JSON.parse(item))
-            // console.log(newArr)
-            return newArr 
-        }
+
         default: return state
     }
 }

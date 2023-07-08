@@ -9,14 +9,13 @@ import {
     Button,
 } from '@mui/material'
 import SelectPlatform from '../components/SelectPlatform'
-import AlertComp from '../components/AlertComp'
 import Editor from '../components/Editor'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RecordsContext from '../Contexts/Records/RecordsContext'
 import { useNavigate } from 'react-router-dom'
-import Snackbar from '../components/Snackbar'
+import Snackbar from '../components/Snackbar' 
 
-
+ 
 function AddContest() {
     const [problems, setProblems] = useState(4)
     const [contestName, setContestName] = useState('')
@@ -34,13 +33,11 @@ function AddContest() {
     const handleRecordSubmit = () => {
         setShowSnack(null)
         const date = new Date()
-        const reps = 1
         const bookmarked = false
-        console.log(contestName, contestLink, platform, problems, problemsSolved, performance)
         if(contestName==='' || contestLink==='' || problems<=0 ){
             return setShowSnack({message:'Input fields can not be empty!'})
         }
-        recordsDispatch({ type: 'INSERT', record: { contestName,uuid:uuidv4(), contestLink, platform, problems,problemsSolved, date, reps, bookmarked, performance, concepts } })
+        recordsDispatch({ type: 'INSERT', record: { contestName,uuid:uuidv4(), contestLink, platform, problems,problemsSolved, date, bookmarked, performance, concepts } })
         navigate('/')
     }
 
