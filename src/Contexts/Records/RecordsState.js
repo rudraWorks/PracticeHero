@@ -8,7 +8,7 @@ const reducer = (state, action) => {
         }
         case 'BOOKMARK': {
             const { checked, uuid } = action
-            console.log(checked, uuid)
+            // console.log(checked, uuid)
             let r = JSON.parse(localStorage.getItem('records'))
             let newArr = r.map((record) => {
                 record = JSON.parse(record)
@@ -92,7 +92,7 @@ const reducer = (state, action) => {
                 })
             }
             newArr = newArr.map((item)=>JSON.parse(item))
-            console.log(newArr)
+            // console.log(newArr)
             return newArr 
         }
         default: return state

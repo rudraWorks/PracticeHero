@@ -72,7 +72,7 @@ export default function CustomizedTables() {
     const { records, recordsDispatch } = useContext(RecordsContext)
     const [showDialog, setShowDialog] = useState(false)
     const [concepts, setConcepts] = useState('<p><p>')
-    console.log(records)
+    // console.log(records)
 
     const [showSnack, setShowSnack] = useState(null)
 
