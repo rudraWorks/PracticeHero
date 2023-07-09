@@ -5,6 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
+import InfoIcon from '@mui/icons-material/Info';
 
 const Container = styled.div`
     height:50px;
@@ -14,12 +15,10 @@ const Container = styled.div`
     justify-content:center;
     align-items:center;
     margin-bottom:10px;
-
-    background: #02AAB0;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #00CDAC, #02AAB0);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #00CDAC, #02AAB0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         
-
+    background-color: #124e71;
+    background-image: linear-gradient(45deg, #124e71 0%, #9ab9e4 100%);
+        
     
     &>a{
         margin-left:20px;
@@ -43,6 +42,10 @@ function NavbarComp() {
       <NavLink to='/' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'white' })}>
         <HomeIcon />
       </NavLink>
+      <NavLink to='/about' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'white' })}>
+        <InfoIcon />
+      </NavLink>
+      
       <NavLink to='/progress' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'white' })} >
         <TrendingUpIcon/>
         

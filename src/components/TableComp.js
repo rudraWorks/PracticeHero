@@ -100,6 +100,7 @@ export default function CustomizedTables() {
         setConcepts(concepts)
         setShowDialog(true)
     }
+    
     return (
         <>
             {/* <Typography variant='h5' sx={{textAlign:'right'}}>{records.length} {records.length > 1 ? 'contests' : 'contest'} </Typography> */}

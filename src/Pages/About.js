@@ -7,7 +7,7 @@ import {
 } from '@react-hook/window-size'
 
 
-function Home() {
+function About() {
   const width = useWindowWidth()
   console.log(width)
   let fontSize = '110px'
@@ -48,15 +48,11 @@ function Home() {
     <Box sx={{ textAlign: 'center' }} mt={4}> 
 
       {/* {width + '-' + fontSize+"-"+fs2+'-'+fs3} */}
-      <video style={{width:'100%',height:'400px'}}  autoPlay muted loop  > 
-  <source src="/Practice Hero.mp4" type="video/mp4"/>
-  Your browser does not support the video tag.
-</video>
-      {/* <Typography variant='h1' sx={{ fontWeight: 'bolder', fontSize ,WebkitTextStroke:'1px black',color:'yellow' }} gutterBottom> Measure it to master it! </Typography>
+      <Typography variant='h1' sx={{ fontWeight: 'bolder', fontSize ,WebkitTextStroke:'1px black',color:'yellow' }} gutterBottom> Measure it to master it! </Typography>
       <Typography variant='h3' sx={{fontSize:fs2}} gutterBottom>Track your daily progress with <b style={{WebkitTextStroke:'1px blue',color:'aliceblue'}}>PracticeHero</b></Typography>
-      <Typography variant='h4' sx={{fontSize:fs3}}>The best platform to track your progress in virtual contests</Typography> */}
+      <Typography variant='h4' sx={{fontSize:fs3}}>The best platform to track your progress in virtual contests</Typography>
     </Box>
   )
 }
 
-export default Home
+export default About

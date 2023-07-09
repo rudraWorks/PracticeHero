@@ -6,6 +6,7 @@ import AddContest from './Pages/AddContest'
 import Progress from './Pages/Progress'
 import RecordsState from './Contexts/Records/RecordsState'
 import Edit from './Pages/Edit'
+import About from './Pages/About' 
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: 'edit/:recordId',
         element: <Edit/>
       },
+      {
+        path:'about',
+        element: <About/>
+      }
     ]
   }
 ])
