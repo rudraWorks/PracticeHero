@@ -3,8 +3,6 @@ import styled from '@emotion/styled'
 import { NavLink } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import AssessmentIcon from '@mui/icons-material/Assessment';
-import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import InfoIcon from '@mui/icons-material/Info';
 
 const Container = styled.div`

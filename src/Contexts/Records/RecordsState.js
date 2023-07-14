@@ -33,7 +33,7 @@ const reducer = (state, action) => {
                 return record.uuid !== uuid
             })
             setRecords(newArr) 
-            return JSON.parse(fetchRecords())
+            return fetchRecords()
         }
         case 'UPDATE': {  
             const uuid = action.uuid
