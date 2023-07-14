@@ -16,10 +16,10 @@ const Container = styled.div`
     align-items:center;
     margin-bottom:10px;
         
-    background-color: #124e71;
-    background-image: linear-gradient(45deg, #124e71 0%, #9ab9e4 100%);
-        
-    
+    // background-color: #124e71;
+    // background-image: linear-gradient(45deg, #124e71 0%, #9ab9e4 100%);
+    background:#5b6167;    
+    border-bottom:1px solid #d0dde3;
     &>a{
         margin-left:20px;
         margin-right:20px;
@@ -31,7 +31,7 @@ const Container = styled.div`
         display:flex;
         align-items:center;
         &>svg{
-          transform:scale(1.5);
+          transform:scale(1.3);
         }
     }
 `
@@ -39,14 +39,14 @@ const Container = styled.div`
 function NavbarComp() {
   return (
     <Container>
-      <NavLink to='/' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'white' })}>
+      <NavLink to='/' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'lightgray' })}>
         <HomeIcon />
       </NavLink>
-      <NavLink to='/about' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'white' })}>
+      <NavLink to='/about' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'lightgray' })}>
         <InfoIcon />
       </NavLink>
       
-      <NavLink to='/progress' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'white' })} >
+      <NavLink to='/progress' style={({ isActive }) => ({ color: isActive ? 'yellow' : 'lightgray' })} >
         <TrendingUpIcon/>
         
       </NavLink>

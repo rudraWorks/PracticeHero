@@ -9,7 +9,6 @@ import {
 
 function Home() {
   const width = useWindowWidth()
-  console.log(width)
   let fontSize = '110px'
   let fs2 = '60px'
   let fs3 = '30px'

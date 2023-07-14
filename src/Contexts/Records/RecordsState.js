@@ -1,73 +1,92 @@
 import RecordsContext from "./RecordsContext";
 import { useEffect, useReducer } from "react";
+import { fetchRecords, setRecords } from "../../utils/utils";
 
 const reducer = (state, action) => {
     switch (action.type) {
         case 'LOAD': {
-            return action.records
+            return fetchRecords()
         }
         case 'BOOKMARK': {
             const { checked, uuid } = action
-            // console.log(checked, uuid)
-            let r = JSON.parse(localStorage.getItem('records'))
+            let r = fetchRecords()
             let newArr = r.map((record) => {
-                record = JSON.parse(record)
                 if (record.uuid === uuid) {
                     record.bookmarked=checked  
                 }
-                return JSON.stringify(record)
+                return record 
             })
-            localStorage.setItem('records', JSON.stringify(newArr))
-
-            r = JSON.parse(localStorage.getItem('records'))
-            let arr = []
-            for (let item of r) {
-                arr.push(JSON.parse(item))
-            }
-            return arr
+            setRecords(newArr)
+            return fetchRecords()
         }
         case 'INSERT': {
-            let r = JSON.parse(localStorage.getItem('records'))
+            let r = fetchRecords()
             if (!r)
                 r = []
-            r.unshift(JSON.stringify(action.record))
-            localStorage.setItem('records', JSON.stringify(r))
+            r.unshift(action.record)
+            setRecords(r)
             return [action.record, ...state]
         }
         case 'DELETE': {
             const uuid = action.uuid
-            let r = JSON.parse(localStorage.getItem('records'))
-            let newArr = r.filter((record) => {
-                return JSON.parse(record).uuid !== uuid
-
+            let newArr = fetchRecords().filter((record) => {
+                return record.uuid !== uuid
             })
-            localStorage.setItem('records', JSON.stringify(newArr))
-            r = JSON.parse(localStorage.getItem('records'))
-            let arr = []
-            for (let item of r) {
-                arr.push(JSON.parse(item))
-            }
-            return arr
+            setRecords(newArr) 
+            return JSON.parse(fetchRecords())
         }
-        case 'UPDATE': { 
+        case 'UPDATE': {  
             const uuid = action.uuid
-            const newRecord = JSON.stringify(action.record)
-            let r = JSON.parse(localStorage.getItem('records'))
+            let r = fetchRecords()
             let newArr = r.map((record) => {
-                record = JSON.parse(record)
                 if (record.uuid === uuid) {
-                    return newRecord
+                    return action.record
                 }
-                return JSON.stringify(record)
+                return record 
             })
-            localStorage.setItem('records', JSON.stringify(newArr))
+            setRecords(newArr)
+            return fetchRecords()
+        }
+        case 'date':{ 
+            let records = fetchRecords() 
+            records.sort((recordA,recordB)=>new Date(recordB.date)-new Date(recordA.date))
+            setRecords(records) 
+            return records
+        }
+        case 'bookmark':{ 
+            let records = fetchRecords() 
+            records.sort((recordA,recordB)=>recordA.bookmarked-recordB.bookmarked)
+            setRecords(records) 
+            return records
+        }
+        case 'done':{ 
+            let records = fetchRecords() 
+            records.sort((recordA,recordB)=>{
+                const doneA = recordA.problemsSolved*100/recordA.problems 
+                const doneB = recordB.problemsSolved*100/recordB.problems 
+                return doneA-doneB
+            }) 
+            setRecords(records)  
+            return records
+        }
+        case 'performance':{ 
+            let records = fetchRecords() 
+            records.sort((recordA,recordB)=>recordA.performance-recordB.performance)
+            setRecords(records) 
+            return records
+        }
+        case 'platform':{ 
+            let records = fetchRecords() 
+            records.sort((recordA,recordB)=>('' + recordA.platform).localeCompare(recordB.platform))
+            setRecords(records) 
+            return records
+        }
 
-            r = JSON.parse(localStorage.getItem('records'))
-            let arr = []
-            for (let item of r) {
-                arr.push(JSON.parse(item))
-            }
-            return arr
+        case 'contest':{ 
+            let records = fetchRecords() 
+            records.sort((recordA,recordB)=>('' + recordA.contestName).localeCompare(recordB.contestName))
+            setRecords(records) 
+            return records
         }
 
         default: return state
@@ -77,15 +96,8 @@ function RecordsState({ children }) {
 
     const [records, recordsDispatch] = useReducer(reducer, [])
     useEffect(() => {
-        let r = localStorage.getItem('records')
-        if (!r) return undefined
-        r = JSON.parse(r)
-        let arr = []
-        for (let item of r) {
-            arr.push(JSON.parse(item))
-        }
-        recordsDispatch({ type: 'LOAD', records: arr })
-    }, [])
+        recordsDispatch({ type: 'LOAD' })
+    }, []) 
 
 
     return (

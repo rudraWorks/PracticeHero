@@ -31,6 +31,7 @@ import Snackbar from './Snackbar';
 import Dialog from './Dialog'
 import Link from '@mui/material/Link'
 
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.common.black,
@@ -66,7 +67,7 @@ const CenterCell = StyledComp.div`
     align-items:center; 
 `
 
-export default function CustomizedTables() {
+export default function CustomizedTables({showSort,setShowSort}) {
     const navigate = useNavigate()
     const { records, recordsDispatch } = useContext(RecordsContext)
     const [showDialog, setShowDialog] = useState(false)
@@ -77,7 +78,7 @@ export default function CustomizedTables() {
     const bookmarkHandler = (checked, uuid) => {
         recordsDispatch({ type: 'BOOKMARK', checked, uuid })
         setShowSnack({ message: 'Changes saved' })
-    }
+    } 
     const rows = [];
     for (let { uuid, contestName, contestLink, concepts, platform, date, problems, problemsSolved, performance, bookmarked } of records) {
         rows.push(createData(
@@ -99,10 +100,11 @@ export default function CustomizedTables() {
     const handleDialog = (concepts) => {
         setConcepts(concepts)
         setShowDialog(true)
-    }
-    
-    return (
+    } 
+
+    return ( 
         <>
+
             {/* <Typography variant='h5' sx={{textAlign:'right'}}>{records.length} {records.length > 1 ? 'contests' : 'contest'} </Typography> */}
 
             <TableContainer component={Paper} sx={{ padding: '5px' }}>
