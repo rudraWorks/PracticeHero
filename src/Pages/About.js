@@ -1,10 +1,6 @@
 import React from 'react'
 import { Typography, Box } from '@mui/material'
-import {
-  useWindowSize,
-  useWindowWidth,
-  useWindowHeight,
-} from '@react-hook/window-size'
+import {useWindowWidth} from '@react-hook/window-size'
 
 
 function About() {
@@ -42,10 +38,8 @@ function About() {
   }
   // else fontSize='40px'
 
-
   return (
     <Box sx={{ textAlign: 'center' }} mt={4}> 
-
       {/* {width + '-' + fontSize+"-"+fs2+'-'+fs3} */}
       <Typography variant='h1' sx={{ fontWeight: 'bolder', fontSize ,WebkitTextStroke:'none',color:'gray' }} gutterBottom> Measure it to master it! </Typography>
       <Typography variant='h3' sx={{fontSize:fs2}} gutterBottom>Track your daily progress with <b style={{WebkitTextStroke:'1px blue',color:'skyblue'}}>PracticeHero</b></Typography>
@@ -53,5 +47,5 @@ function About() {
     </Box>
   )
 }
-
+ 
 export default About
